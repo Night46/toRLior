@@ -37,9 +37,9 @@ class toRLior:
       # Socks5, username / password authentication; Socks4 servers, be sent as the userid HTTP server parameter is ignored
     self.passwd = None
       # only for Socks5
-    self.cusername = 'user'
+    self.c_username = 'user'
       # control port user
-    self.cpasswd = 'pass'
+    self.c_passwd = 'pass'
       # control port pass
     self.Dest_socket = "('my-ip.herokuapp.com', 80)"
       # destination address and destination port
@@ -48,13 +48,12 @@ class toRLior:
     self.s = socks.setdefaultproxy(self.proxy_type, self.proxy_ip, self.proxy_port)
     
     self.sp = socks.socksocket()
-    self.sp.setproxy(self.proxy_type, self.control_ip, self.control_port, self.rdns, self.cusername, self.cpasswd)
+    self.sp.setproxy(self.proxy_type, self.control_ip, self.control_port, self.rdns, self.c_username, self.c_passwd)
 
-    self.IP_regex = re.compile(r'(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})')
+    self.ip_regex = re.compile(r'(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})')
 
 
 class connect(toRLior):
-
   def tor_connect(self):
     self.s
     socket.socket = socks.socksocket
@@ -64,8 +63,8 @@ class connect(toRLior):
     request = urllib2.Request(self.check_ip)
     open_url = urllib2.urlopen(request)
     raw_data = open_url.read()
-    IP = self.IP_regex.search(raw_data)
-    print IP.group()
+    ip = self.ip_regex.search(raw_data)
+    print ip.group()
 
 
 class controller(toRLior):
