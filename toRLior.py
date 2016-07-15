@@ -11,9 +11,12 @@
 import socket
 import socks
 import threading
+import time
 import select
 import sys
 import re
+
+
 
 class toRLior:
   def __init__(self):
@@ -43,6 +46,7 @@ class toRLior:
       # control port pass
     self.Dest_socket = "('my-ip.herokuapp.com', 80)"
       # destination address and destination port
+    self.test_count = 3
     self.threads = []
 
     self.s = socks.setdefaultproxy(self.proxy_type, self.proxy_ip, self.proxy_port)
@@ -66,6 +70,12 @@ class connect(toRLior):
     ip = self.ip_regex.search(raw_data)
     print ip.group()
 
+  def send_GET(self, data):
+    A
+
+  def send_POST(self, data):
+    A
+
 
 class controller(toRLior):
   def control_connect(self, control_socket):
@@ -78,26 +88,60 @@ class controller(toRLior):
     self.sp.send('SIGNAL NEWNYM\r\n')
     self.sp.close()
 
+  def halt(self):
+    self.sp.send('SIGNAL HALT\n\r')
+    self.sp.close()    
+
+  def clear_dns_cache(self):
+    self.sp.send('SIGNAL CLEARDNSCACHE\n\r')
+    self.sp.close()
+
+
+class test(toRLior):
+  def test_circuit_change(self):
+    for i in range(self.test_count):
+      print ''
+      torconnect = connect()
+      torconnect.tor_connect()
+      print 'tor_extern_ip -'+str(i+1)+'-'
+      torconnect.tor_extern_ip()
+      print ''
+
+      if i < 1:
+        torcontrol = controller()
+        torcontrol.control_connect(('127.0.0.1', 9991))
+        print 'asking for a new_circuit..'
+        torcontrol.new_circuit()
+      elif i < self.test_count-1 :
+        print 'waiting for 15s before ciruit change..'
+        time.sleep(15)
+        torcontrol = controller()
+        torcontrol.control_connect(('127.0.0.1', 9991))
+        print 'asking for a new_circuit..'
+        torcontrol.new_circuit()
+
+      i = i+1
 
 
 # ##################################################################################################################
 # uncomment below to test the connection and print out the exitpoint IP | chage the circuit | print out the new IP
 # ##################################################################################################################
 
-# print ''
+# debug = test()
+# debug.test_circuit_change()
+
 # torconnect = connect()
 # torconnect.tor_connect()
-# print 'tor_extern_ip -1-'
 # torconnect.tor_extern_ip()
 
-
-# print ''
 # torcontrol = controller()
 # torcontrol.control_connect(('127.0.0.1', 9991))
-# print 'asking for a new_circuit..'
 # torcontrol.new_circuit()
 
-# print ''
-# print 'tor_extern_ip -2-'
-# torconnect.tor_extern_ip()
-# print ''
+# torcontrol = controller()
+# torcontrol.control_connect(('127.0.0.1', 9991))
+# torcontrol.clear_dns_cache()
+
+# torcontrol = controller()
+# torcontrol.control_connect(('127.0.0.1', 9991))
+# torcontrol.halt()
