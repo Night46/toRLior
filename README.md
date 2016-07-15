@@ -13,16 +13,16 @@ PREREQUISITES
 
 USAGE
 - torconnect.tor_connect()
-	>connects to the TOR client proxy SOCKS5 port
+>	connects to the TOR client proxy SOCKS5 port
 - torconnect.tor_extern_ip()
-	>prints out the IP address of the exit point
+>	prints out the IP address of the exit point
 
 
 - torcontrol.control_connect(('127.0.0.1', 9991))
-	>connects to the TOR client ControlPort
+>	connects to the TOR client ControlPort
 - torcontrol.new_circuit()
-	>sends a new circuit request to the TOR client ControlPort
+>	sends a new circuit request to the TOR client ControlPort
 - torcontrol.clear_dns_cache()
-	>send a clear DNS cache request to the TOR client ControlPort
+>	send a clear DNS cache request to the TOR client ControlPort
 - torcontrol.halt()
-	>sends a disconnect request to the TOR client ControlPort
+>	sends a disconnect request to the TOR client ControlPort
