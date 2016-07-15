@@ -47,6 +47,8 @@ class toRLior:
     self.Dest_socket = "('my-ip.herokuapp.com', 80)"
       # destination address and destination port
     self.test_count = 3
+      # number of times to run the conneciton test function
+    self.headers = 'headers'
     self.threads = []
 
     self.s = socks.setdefaultproxy(self.proxy_type, self.proxy_ip, self.proxy_port)
@@ -70,12 +72,12 @@ class connect(toRLior):
     ip = self.ip_regex.search(raw_data)
     print ip.group()
 
-  def send_GET(self, data):
-    A
+  def send_raw(self, data):
+    self.s.send(data)
+    self.s.send(self.headers)
 
-  def send_POST(self, data):
-    A
-
+  def send_close(self):
+    self.s.close()
 
 class controller(toRLior):
   def control_connect(self, control_socket):
@@ -123,10 +125,10 @@ class test(toRLior):
       i = i+1
 
 
-# ##################################################################################################################
-# uncomment below to test the connection and print out the exitpoint IP | chage the circuit | print out the new IP
-# ##################################################################################################################
-
+# ##################################### #
+# uncomment below to test functionality #
+# ##################################### #
+# print 'test'
 # debug = test()
 # debug.test_circuit_change()
 
