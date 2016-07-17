@@ -14,8 +14,6 @@ import urllib
 import threading
 import Queue
 import time
-import select
-import sys
 import re
 
 
@@ -51,9 +49,11 @@ class toRLior:
     self.test_count = 3
       # number of times to run the conneciton test function
     self.post_dest = 'http://my-ip.herokuapp.com'
-      # destination address and destination port for tor_post
+      # destination address for tor_post
     self.post_data = {'A': 'A'}
       # data to be sent as the POST
+    self.get_dest = 'http://my-ip.herokuapp.com'
+      # # destination address for tor_get
     self.post_data_encode = urllib.urlencode(self.post_data)
       # urllib encoded representation of post_data
     self.post_headers = {
@@ -67,7 +67,7 @@ class toRLior:
       'Accept-Language': 'en-US,en;q=0.8,he;q=0.6',
       'DNT': '1'
       }
-    self.threads = []
+    self.threads_queue = Queue.Queue()
       # threads Q
     self.c = socket.socket()
       # TCP socket for raw data
@@ -79,6 +79,7 @@ class toRLior:
       # set TOR ControlPort proxy
     self.ip_regex = re.compile(r'(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})')
       # regex search for an IP address
+
 
 class connect(toRLior):
   def tor_connect(self):
@@ -93,6 +94,13 @@ class connect(toRLior):
     ip = self.ip_regex.search(raw_data)
     print ip.group()
 
+  def tor_get(self):
+    import urllib2
+    request = urllib2.Request(self.get_dest)
+    open_url = urllib2.urlopen(request)
+    raw_data = open_url.read()
+    print raw_data
+
   def tor_post(self):
     import urllib2
     request = urllib2.Request(self.post_dest, self.post_data_encode, self.post_headers)
@@ -103,6 +111,15 @@ class connect(toRLior):
 
   def send_close(self):
     self.s.close()
+
+
+class threadig(toRLior):
+  def threaded_get(self):
+    pass
+
+  def threaded_post(self):
+    pass
+
 
 class controller(toRLior):
   def control_connect(self, control_socket):
@@ -156,6 +173,10 @@ class test(toRLior):
 # print 'test'
 # debug = test()
 # debug.test_circuit_change()
+
+# torconnect = connect()
+# torconnect.tor_connect()
+# torconnect.tor_get()
 
 # torconnect = connect()
 # torconnect.tor_connect()
