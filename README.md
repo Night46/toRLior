@@ -16,6 +16,8 @@ USAGE
 	--connects to the TOR client proxy SOCKS5 port
 - torconnect.tor_extern_ip()
 	--prints out the IP address of the exit point
+- torconnect.tor_post()
+	-- connect to the remote destination and sends a POST request
 
 
 - torcontrol.control_connect(('127.0.0.1', 9991))

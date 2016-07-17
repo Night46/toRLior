@@ -46,7 +46,7 @@ class toRLior:
       # control port user
     self.c_passwd = 'pass'
       # control port pass
-    self.Dest_socket = "('my-ip.herokuapp.com', 80)"
+    self.dest_socket = "('my-ip.herokuapp.com', 80)"
       # destination address and destination port
     self.test_count = 3
       # number of times to run the conneciton test function
@@ -157,9 +157,9 @@ class test(toRLior):
 # debug = test()
 # debug.test_circuit_change()
 
-torconnect = connect()
-torconnect.tor_connect()
-torconnect.tor_post()
+# torconnect = connect()
+# torconnect.tor_connect()
+# torconnect.tor_post()
 
 # torconnect = connect()
 # torconnect.tor_connect()
