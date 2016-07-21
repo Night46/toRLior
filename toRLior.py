@@ -8,10 +8,10 @@
 # - set the ControlPort hash in your 'torrc' file to 16:4C46EEA1DBCFB4C96047FE8342A4C19120C5A493962943EC0F486FFC69
 # ##################################################################################################################
 
+import threading
 import socket
 import socks
 import urllib
-import threading
 import Queue
 import time
 import re
@@ -67,8 +67,10 @@ class toRLior:
       'Accept-Language': 'en-US,en;q=0.8,he;q=0.6',
       'DNT': '1'
       }
-    self.threads_queue = Queue.Queue()
-      # threads Q
+    self.thread_dest = 'http://my-ip.herokuapp.com'
+      # threaded sockets destination address
+    self.thread_count = 5
+      # the number of itterations
     self.c = socket.socket()
       # TCP socket for raw data
     self.s = socks.setdefaultproxy(self.proxy_type, self.proxy_ip, self.proxy_port)
@@ -113,12 +115,75 @@ class connect(toRLior):
     self.s.close()
 
 
-class threadig(toRLior):
+class multi_thread(toRLior, threading.Thread):
+  def tor_thread_connect(self):
+    self.s
+    socket.socket = socks.socksocket
+
   def threaded_get(self):
-    pass
+    import urllib2
+    for i in range (self.thread_count):
+      request = urllib2.Request(self.thread_dest)
+      open_url = urllib2.urlopen(request)
+      raw_data = open_url.read()
+      print raw_data
+
+
+  def threaded_get_changeIP(self):
+    import urllib2
+    for i in range (self.thread_count):
+      request = urllib2.Request(self.thread_dest)
+      open_url = urllib2.urlopen(request)
+      raw_data = open_url.read()
+      print raw_data
+      if i < 1:
+        torcontrol = controller()
+        torcontrol.control_connect(('127.0.0.1', 9991))
+        print 'asking for a new_circuit..'
+        torcontrol.new_circuit()
+      elif i < self.thread_count-1 :
+        print 'waiting for 15s before ciruit change..'
+        time.sleep(15)
+        torcontrol = controller()
+        torcontrol.control_connect(('127.0.0.1', 9991))
+        print 'asking for a new_circuit..'
+        torcontrol.new_circuit()
+
+      i = i+1
+      
 
   def threaded_post(self):
-    pass
+    import urllib2
+    for i in range (self.thread_count):
+      request = urllib2.Request(self.post_dest, self.post_data_encode, self.post_headers)
+      open_url = urllib2.urlopen(request)
+      raw_data = open_url.read()
+      print raw_data
+
+  def threaded_post_changeIP(self):
+    import urllib2
+    for i in range (self.thread_count):
+      request = urllib2.Request(self.post_dest, self.post_data_encode, self.post_headers)
+      open_url = urllib2.urlopen(request)
+      raw_data = open_url.read()
+      print raw_data
+      if i < 1:
+        torcontrol = controller()
+        torcontrol.control_connect(('127.0.0.1', 9991))
+        print 'asking for a new_circuit..'
+        torcontrol.new_circuit()
+      elif i < self.thread_count-1 :
+        print 'waiting for 15s before ciruit change..'
+        time.sleep(15)
+        torcontrol = controller()
+        torcontrol.control_connect(('127.0.0.1', 9991))
+        print 'asking for a new_circuit..'
+        torcontrol.new_circuit()
+
+      i = i+1
+
+  def send_thread_close(self):
+    self.s.close()
 
 
 class controller(toRLior):
@@ -130,15 +195,15 @@ class controller(toRLior):
 
   def new_circuit(self):
     self.sp.send('SIGNAL NEWNYM\r\n')
-    self.sp.close()
-
-  def halt(self):
-    self.sp.send('SIGNAL HALT\n\r')
-    self.sp.close()    
+    self.sp.close()   
 
   def clear_dns_cache(self):
     self.sp.send('SIGNAL CLEARDNSCACHE\n\r')
     self.sp.close()
+
+  def halt(self):
+    self.sp.send('SIGNAL HALT\n\r')
+    self.sp.close() 
 
 
 class test(toRLior):
@@ -185,6 +250,14 @@ class test(toRLior):
 # torconnect = connect()
 # torconnect.tor_connect()
 # torconnect.tor_extern_ip()
+
+# torthread = multi_thread()
+# torthread.tor_thread_connect()
+# torthread.threaded_get()
+
+# torthread = multi_thread()
+# torthread.tor_thread_connect()
+# torthread.threaded_get_changeIP()
 
 # torcontrol = controller()
 # torcontrol.control_connect(('127.0.0.1', 9991))

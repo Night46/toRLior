@@ -16,8 +16,26 @@ USAGE
 	--connects to the TOR client proxy SOCKS5 port
 - torconnect.tor_extern_ip()
 	--prints out the IP address of the exit point
+- torconnect.tor_get()
+	-- connect to the remote destination and sends a GET request
 - torconnect.tor_post()
 	-- connect to the remote destination and sends a POST request
+- torconnect.send_close()
+	-- close the current session
+
+
+- torthread.tor_thread_connect()
+	--connects to the TOR client proxy SOCKS5 port
+- torthread.threaded_get()
+	-- connect to the remote destination and sends multi threaded GET requests
+- torthread.threaded_get_changeIP()
+	-- connect to the remote destination and sends multi threaded GET requests AND change circuit per request
+- torthread.threaded_post()
+	-- connect to the remote destination and sends multi threaded POST requests
+- torthread.threaded_post_changeIP()
+	-- connect to the remote destination and sends multi threaded POST requests AND change circuit per request
+- torthread.send_thread_close()
+	-- close the current session
 
 
 - torcontrol.control_connect(('127.0.0.1', 9991))
@@ -28,3 +46,6 @@ USAGE
 	--send a clear DNS cache request to the TOR client ControlPort
 - torcontrol.halt()
 	--sends a disconnect request to the TOR client ControlPort
+
+- test.test_circuit_change()
+	--test the connection to TOR and change circuits
