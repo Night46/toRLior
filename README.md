@@ -3,6 +3,7 @@ It's built with python 2.7 and requires no additional installations besides the 
 
 
 PREREQUISITES
+- SocksiPy (can be downloaded at http://socksipy.sourceforge.net/)
 - tor config file 'torrc' default location /usr/local/etc/tor
 - set the tor config to allow SocksPort on port 9999
 - set the tor config to allow ControlPort on port 9991
