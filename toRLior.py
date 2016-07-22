@@ -122,65 +122,79 @@ class multi_thread(toRLior, threading.Thread):
 
   def threaded_get(self):
     import urllib2
+    request = urllib2.Request(self.thread_dest)
+    open_url = urllib2.urlopen(request)
+    raw_data = open_url.read()
+    print raw_data
+    print threading.current_thread()
+    
+  def threaded_get_run(self):  
+    threads = []
     for i in range (self.thread_count):
-      request = urllib2.Request(self.thread_dest)
-      open_url = urllib2.urlopen(request)
-      raw_data = open_url.read()
-      print raw_data
-
+      t = threading.Thread(target=self.threaded_get())
+      print threads
+      threads.append(t)
+      print threads
+      t.start()
+      t.join()
+      print threads
 
   def threaded_get_changeIP(self):
     import urllib2
-    for i in range (self.thread_count):
-      request = urllib2.Request(self.thread_dest)
-      open_url = urllib2.urlopen(request)
-      raw_data = open_url.read()
-      print raw_data
-      if i < 1:
-        torcontrol = controller()
-        torcontrol.control_connect(('127.0.0.1', 9991))
-        print 'asking for a new_circuit..'
-        torcontrol.new_circuit()
-      elif i < self.thread_count-1 :
-        print 'waiting for 15s before ciruit change..'
-        time.sleep(15)
-        torcontrol = controller()
-        torcontrol.control_connect(('127.0.0.1', 9991))
-        print 'asking for a new_circuit..'
-        torcontrol.new_circuit()
+    request = urllib2.Request(self.thread_dest)
+    open_url = urllib2.urlopen(request)
+    raw_data = open_url.read()
+    print raw_data
+    print ''
+    print 'asking for a new_circuit..'
+    print 'waiting for 15s before ciruit change..'
+    time.sleep(15)
+    torcontrol = controller()
+    torcontrol.control_connect(('127.0.0.1', 9991))
+    torcontrol.new_circuit()    
 
-      i = i+1
-      
+  def threaded_get_changeIP_run(self):  
+    threads = []
+    for i in range (self.thread_count):
+      t = threading.Thread(target=self.threaded_get_changeIP())
+      print threads
+      threads.append(t)
+      print threads
+      t.start()
+      t.join()
+      print threads
 
   def threaded_post(self):
     import urllib2
+    request = urllib2.Request(self.post_dest, self.post_data_encode, self.post_headers)
+    open_url = urllib2.urlopen(request)
+    raw_data = open_url.read()
+    print raw_data
+
+  def threaded_post_run(self):  
+    threads = []
     for i in range (self.thread_count):
-      request = urllib2.Request(self.post_dest, self.post_data_encode, self.post_headers)
-      open_url = urllib2.urlopen(request)
-      raw_data = open_url.read()
-      print raw_data
+      t = threading.Thread(target=self.threaded_post())
+      print threads
+      threads.append(t)
+      print threads
+      t.start()
+      t.join()
+      print threads
 
   def threaded_post_changeIP(self):
     import urllib2
-    for i in range (self.thread_count):
-      request = urllib2.Request(self.post_dest, self.post_data_encode, self.post_headers)
-      open_url = urllib2.urlopen(request)
-      raw_data = open_url.read()
-      print raw_data
-      if i < 1:
-        torcontrol = controller()
-        torcontrol.control_connect(('127.0.0.1', 9991))
-        print 'asking for a new_circuit..'
-        torcontrol.new_circuit()
-      elif i < self.thread_count-1 :
-        print 'waiting for 15s before ciruit change..'
-        time.sleep(15)
-        torcontrol = controller()
-        torcontrol.control_connect(('127.0.0.1', 9991))
-        print 'asking for a new_circuit..'
-        torcontrol.new_circuit()
-
-      i = i+1
+    request = urllib2.Request(self.post_dest, self.post_data_encode, self.post_headers)
+    open_url = urllib2.urlopen(request)
+    raw_data = open_url.read()
+    print raw_data
+    print ''
+    print 'asking for a new_circuit..'
+    print 'waiting for 15s before ciruit change..'
+    time.sleep(15)
+    torcontrol = controller()
+    torcontrol.control_connect(('127.0.0.1', 9991))
+    torcontrol.new_circuit()
 
   def send_thread_close(self):
     self.s.close()
@@ -253,11 +267,11 @@ class test(toRLior):
 
 # torthread = multi_thread()
 # torthread.tor_thread_connect()
-# torthread.threaded_get()
+# torthread.threaded_get_run()
 
 # torthread = multi_thread()
 # torthread.tor_thread_connect()
-# torthread.threaded_get_changeIP()
+# torthread.threaded_get_changeIP_run()
 
 # torcontrol = controller()
 # torcontrol.control_connect(('127.0.0.1', 9991))

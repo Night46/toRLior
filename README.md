@@ -27,13 +27,13 @@ USAGE
 
 - torthread.tor_thread_connect()
 	--connects to the TOR client proxy SOCKS5 port
-- torthread.threaded_get()
+- torthread.threaded_get_run()
 	-- connect to the remote destination and sends multi threaded GET requests
 - torthread.threaded_get_changeIP()
 	-- connect to the remote destination and sends multi threaded GET requests AND change circuit per request
-- torthread.threaded_post()
+- torthread.threaded_post_run()
 	-- connect to the remote destination and sends multi threaded POST requests
-- torthread.threaded_post_changeIP()
+- torthread.threaded_post_changeIP_run()
 	-- connect to the remote destination and sends multi threaded POST requests AND change circuit per request
 - torthread.send_thread_close()
 	-- close the current session
