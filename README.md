@@ -1,11 +1,11 @@
 # Overview
----
+
 `toRLior` is a colleciton of python classes that can be used to cerate a SOCKS5 based connection to TOR and its client ControlPort.
 It`s built with python 2.7 and requires only =SocksiPy= installations besides a =TOR= client.
 
 
 # Prerequisites
----
+
 - Download [SocksiPy] (http://socksipy.sourceforge.net)
 - tor config file `torrc` default location /usr/local/etc/tor
 - set the tor config to allow SocksPort on port 9999
@@ -16,7 +16,7 @@ It`s built with python 2.7 and requires only =SocksiPy= installations besides a 
 
 
 # USAGE
----
+
 ### The `connect` class
 ---
 `torconnect.tor_connect()` :: | **connects to the TOR client proxy SOCKS5 port**
