@@ -1,7 +1,7 @@
 ## Overview
 
 `toRLior` is a colleciton of python classes that can be used to cerate a SOCKS5 based connection to TOR and its client ControlPort.
-It`s built with python 2.7 and requires only `SocksiPy` installations besides a `TOR` client.
+It's built with python 2.7 and requires only `SocksiPy` installations besides a `TOR` client.
 
 
 ## Prerequisites
