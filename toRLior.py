@@ -245,42 +245,43 @@ class test(toRLior):
 
       i = i+1
 
+if __name__ == '__main__':
+  
+  # ##################################### #
+  # uncomment below to test functionality #
+  # ##################################### #
+  # print 'test'
+  # debug = test()
+  # debug.test_circuit_change()
 
-# ##################################### #
-# uncomment below to test functionality #
-# ##################################### #
-# print 'test'
-# debug = test()
-# debug.test_circuit_change()
+  # torconnect = connect()
+  # torconnect.tor_connect()
+  # torconnect.tor_get()
 
-# torconnect = connect()
-# torconnect.tor_connect()
-# torconnect.tor_get()
+  # torconnect = connect()
+  # torconnect.tor_connect()
+  # torconnect.tor_post()
 
-# torconnect = connect()
-# torconnect.tor_connect()
-# torconnect.tor_post()
+  # torconnect = connect()
+  # torconnect.tor_connect()
+  # torconnect.tor_extern_ip()
 
-# torconnect = connect()
-# torconnect.tor_connect()
-# torconnect.tor_extern_ip()
+  # torthread = multi_thread()
+  # torthread.tor_thread_connect()
+  # torthread.threaded_get_run()
 
-# torthread = multi_thread()
-# torthread.tor_thread_connect()
-# torthread.threaded_get_run()
+  # torthread = multi_thread()
+  # torthread.tor_thread_connect()
+  # torthread.threaded_get_changeIP_run()
 
-# torthread = multi_thread()
-# torthread.tor_thread_connect()
-# torthread.threaded_get_changeIP_run()
+  # torcontrol = controller()
+  # torcontrol.control_connect(('127.0.0.1', 9991))
+  # torcontrol.new_circuit()
 
-# torcontrol = controller()
-# torcontrol.control_connect(('127.0.0.1', 9991))
-# torcontrol.new_circuit()
+  # torcontrol = controller()
+  # torcontrol.control_connect(('127.0.0.1', 9991))
+  # torcontrol.clear_dns_cache()
 
-# torcontrol = controller()
-# torcontrol.control_connect(('127.0.0.1', 9991))
-# torcontrol.clear_dns_cache()
-
-# torcontrol = controller()
-# torcontrol.control_connect(('127.0.0.1', 9991))
-# torcontrol.halt()
+  # torcontrol = controller()
+  # torcontrol.control_connect(('127.0.0.1', 9991))
+  # torcontrol.halt()
