@@ -12,7 +12,6 @@ import threading
 import socket
 import socks
 import urllib
-import Queue
 import time
 import re
 
